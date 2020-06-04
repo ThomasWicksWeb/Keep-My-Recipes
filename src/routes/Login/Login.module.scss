@@ -1,0 +1,31 @@
+.LoginBackground {
+  background: linear-gradient(
+    270deg,
+    #845ec2,
+    #d65db1,
+    #ff6f91,
+    #ff9671,
+    #ffc75f
+  );
+  background-size: 1000% 1000%;
+
+  animation: GradientAnimation 30s ease infinite;
+}
+
+.ContentContainer {
+  max-width: 30rem;
+  width: 100%;
+  margin: 0 0 0 auto;
+  padding: 2rem;
+}
+
+.formContainer {
+  max-width: 40rem;
+  margin: 2rem auto 0 auto;
+}
+
+@keyframes GradientAnimation {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
