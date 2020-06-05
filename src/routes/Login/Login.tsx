@@ -29,6 +29,13 @@ const Login = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(function () {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            console.log(user.uid);
+          } else {
+          }
+        });
+
         history.push("/recipes");
       })
       .catch(function (error) {
@@ -47,9 +54,9 @@ const Login = () => {
         <h3 className="has-text-weight-bold has-text-centered is-size-3">
           Login
         </h3>
-        <h3 className="has-text-weight-bold has-text-centered is-size-4">
+        {/* <h3 className="has-text-weight-bold has-text-centered is-size-4">
           with Username or Email
-        </h3>
+        </h3> */}
 
         <form onSubmit={handleOnSubmit} className={styles.formContainer}>
           <div className="field">
