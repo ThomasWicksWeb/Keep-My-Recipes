@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, useContext, ChangeEvent, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
@@ -6,15 +6,24 @@ import { ToastContainer, toast } from "react-toastify";
 import firebase from "firebase";
 import classnames from "classnames";
 
+import { ThemeContext } from "../../contexts/ThemeContext";
+
 import "bulma/css/bulma.css";
 import styles from "./Login.module.scss";
 
 const Login = () => {
+  // State variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // History
   const history = useHistory();
 
+  // Theme Context
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const LocalTheme = isLightTheme ? theme.light : theme.dark;
+
+  // Login field state updaters
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -29,13 +38,6 @@ const Login = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(function () {
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            console.log(user.uid);
-          } else {
-          }
-        });
-
         history.push("/recipes");
       })
       .catch(function (error) {
@@ -48,7 +50,13 @@ const Login = () => {
 
   return (
     <section className={classnames("section", styles.LoginBackground)}>
-      <div className={classnames("box", styles.ContentContainer)}>
+      <div
+        className={classnames("box", styles.ContentContainer)}
+        style={{
+          background: LocalTheme.backgroundColorLight,
+          color: LocalTheme.syntax,
+        }}
+      >
         <ToastContainer />
 
         <h3 className="has-text-weight-bold has-text-centered is-size-3">
@@ -60,7 +68,14 @@ const Login = () => {
 
         <form onSubmit={handleOnSubmit} className={styles.formContainer}>
           <div className="field">
-            <label className="label">Email</label>
+            <label
+              className="label"
+              style={{
+                color: LocalTheme.syntax,
+              }}
+            >
+              Email
+            </label>
             <div className="control">
               <input
                 className="input"
@@ -73,7 +88,14 @@ const Login = () => {
             </div>
           </div>
           <div className="field">
-            <label className="label">Password</label>
+            <label
+              className="label"
+              style={{
+                color: LocalTheme.syntax,
+              }}
+            >
+              Password
+            </label>
             <div className="control">
               <input
                 className="input"
@@ -85,19 +107,40 @@ const Login = () => {
               />
             </div>
           </div>
-          <button className="button is-info has-text-weight-bold" type="submit">
+          <button
+            className="button is-info has-text-weight-bold"
+            type="submit"
+            style={{
+              background: LocalTheme.buttonBackground,
+            }}
+          >
             Login
           </button>
 
           <hr />
 
           <p className="has-text-centered">
-            Don't have an account? <Link to="/createaccount">Create one</Link>
+            Don't have an account?{" "}
+            <Link
+              to="/createaccount"
+              style={{
+                color: LocalTheme.linkText,
+              }}
+            >
+              Create one
+            </Link>
           </p>
 
           <p className="has-text-centered">
             Having trouble logging in?{" "}
-            <Link to="/resetpassword">Reset your password</Link>
+            <Link
+              to="/resetpassword"
+              style={{
+                color: LocalTheme.linkText,
+              }}
+            >
+              Reset your password
+            </Link>
           </p>
         </form>
       </div>
