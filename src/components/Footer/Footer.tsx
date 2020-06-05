@@ -1,13 +1,17 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { ExternalLink } from "../ExternalLink";
 
 function AppFooter() {
+  // Theme Context
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const LocalTheme = isLightTheme ? theme.light : theme.dark;
+
   return (
-    <footer className="footer">
+    <footer className="footer" style={{background: LocalTheme.backgroundColorLight, color: LocalTheme.syntax}}>
       <div className="content has-text-centered">
         <p className="is-size-6">
-          <strong>Keep My Recipes</strong> by{" "}
+          <strong style={{color: LocalTheme.syntax}}>Keep My Recipes</strong> by{" "}
           <ExternalLink
             text="Thomas Wicks,"
             href="https://thomaswicks.com/"
@@ -36,7 +40,7 @@ function AppFooter() {
           ></ExternalLink>{" "}
         </p>
         <p className="is-size-6">
-          Site last updated <strong>May 26th, 2020</strong>
+          Site last updated <strong style={{color: LocalTheme.syntax}}>May 26th, 2020</strong>
         </p>
       </div>
     </footer>
