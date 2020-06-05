@@ -112,7 +112,7 @@ const NavBar = () => {
       </div>
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <Link to="/about" className="navbar-item">
+          <Link to="/about" className="navbar-item navbar-about">
             <strong
               style={{
                 color: LocalTheme.syntax,
