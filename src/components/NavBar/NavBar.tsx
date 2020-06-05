@@ -39,11 +39,14 @@ const NavBar = () => {
     } else {
       return (
         <>
-          <Link to="/notes" className="navbar-item">
-            <strong>My Notes</strong>
+          <Link to="/recipes" className="navbar-item">
+            <strong>My Recipes</strong>
           </Link>
           <Link to="/account" className="navbar-item">
             <strong>Account</strong>
+          </Link>
+          <Link to="/settings" className="navbar-item">
+            <strong>Settings</strong>
           </Link>
           <button className="button is-info" onClick={handleLogout}>
             <strong>Logout</strong>
@@ -57,7 +60,7 @@ const NavBar = () => {
       <ToastContainer />
       <div className="navbar-brand">
         <Link to="/" className="navbar-item is-size-3 ScriptFont">
-          Keep My Notes
+          Keep My Recipes
         </Link>
         <button
           className="navbar-burger burger"
