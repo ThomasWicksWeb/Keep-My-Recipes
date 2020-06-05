@@ -1,25 +1,23 @@
 import React, { useState, useContext } from "react";
 
-import AuthContext from '../../contexts/AuthContext'
+import { AuthContext } from "../../contexts/AuthContext";
 import styles from "./Recipes.module.scss";
-import { Helmet } from 'react-helmet';
-import { ToastContainer, toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
+import { ToastContainer, toast } from "react-toastify";
 
-import { db } from '../../App'
+import { db } from "../../App";
 
 const Recipes = () => {
-
   const { userState } = useContext(AuthContext);
 
   const [AllRecipes, setAllRecipes] = useState([]);
 
-
   async function getCollectionData() {
     const snapshot = await db
-      .collection('users')
+      .collection("users")
       .doc(userState.uid)
-      .collection('Notes')
-      .orderBy('LastEdit', 'desc')
+      .collection("recipes")
+      .orderBy("LastEdit", "desc")
       .get();
     const storedRecipes = await Promise.all(
       snapshot.docs.map(async (doc) => await doc.data())
@@ -29,10 +27,11 @@ const Recipes = () => {
 
   return (
     <main>
-      <ToastContainer /> 
+      <p>Recipes</p>
+      <ToastContainer />
       <Helmet>
-        <title>Notes | Keep My Notes</title>
-        <meta name="description" content="View all your notes..." />
+        <title>Recipes | Keep My Recipes</title>
+        <meta name="description" content="View all your recipes..." />
       </Helmet>
     </main>
   );
