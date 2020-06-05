@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
-import firebase from 'firebase';
+import React, { createContext, useState, useEffect } from "react";
+import firebase from "firebase";
 
 export const AuthContext = createContext();
 
@@ -8,7 +8,9 @@ const AuthContextProvider = (props) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      setAuthState(user);
+      if (user) {
+        setAuthState(user);
+      }
     });
   });
 
