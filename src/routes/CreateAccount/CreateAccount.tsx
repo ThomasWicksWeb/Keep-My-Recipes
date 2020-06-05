@@ -1,19 +1,24 @@
-import React, { useState, ChangeEvent, FormEvent} from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { Link, useHistory } from "react-router-dom";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
+import { ToastContainer, toast } from "react-toastify";
 
-import firebase from 'firebase';
+import firebase from "firebase";
+import { db } from "../../App";
 
-import 'bulma/css/bulma.css';
-import styles from './CreateAccount.module.scss';
+import styles from "./CreateAccount.module.scss";
 
 const CreateAccount = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   let history = useHistory();
+
+  const handleUsername = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -29,11 +34,20 @@ const CreateAccount = () => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(function () {
-        history.push('/recipes');
+        db.collection("users").doc();
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            db.collection("users").doc(user.uid).set({
+              username
+            });
+          } else {
+          }
+        });
+        history.push("/recipes");
       })
       .catch(function (error) {
         toast.error(error.message, {
-          position: 'top-center',
+          position: "top-center",
         });
       });
   };
@@ -48,6 +62,20 @@ const CreateAccount = () => {
         <ToastContainer />
 
         <form onSubmit={handleOnSubmit} className={styles.formContainer}>
+          <div className="field">
+            <label className="label">Username</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                placeholder="What do you want to be called?"
+                required
+                value={username}
+                onChange={handleUsername}
+              />
+            </div>
+          </div>
+
           <div className="field">
             <label className="label">Email</label>
             <div className="control">
@@ -85,17 +113,14 @@ const CreateAccount = () => {
           </p>
 
           <p className="has-text-centered">
-            Having trouble logging in?{' '}
+            Having trouble logging in?{" "}
             <Link to="/resetpassword">Reset your password</Link>
           </p>
         </form>
       </div>
       <Helmet>
         <title>Create Account | Keep My Notes</title>
-        <meta
-          name="description"
-          content="Create your Keep My Notes account"
-        />
+        <meta name="description" content="Create your Keep My Notes account" />
       </Helmet>
     </section>
   );
