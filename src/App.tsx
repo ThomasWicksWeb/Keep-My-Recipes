@@ -6,7 +6,10 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
-import "bulma";
+// Styling
+import "bulma"; // Styles app on a global level
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Contexts
 import AuthContextProvider from "./contexts/AuthContext";
