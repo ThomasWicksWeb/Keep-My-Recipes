@@ -8,6 +8,7 @@ import "firebase/firestore";
 
 // Styling
 import "bulma"; // Styles app on a global level
+import "./BulmaFixes.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 // Contexts
