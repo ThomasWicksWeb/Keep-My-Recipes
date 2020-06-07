@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import styles from "./Recipes.module.scss";
@@ -11,19 +11,35 @@ const Recipes = () => {
   const { userState } = useContext(AuthContext);
 
   const [AllRecipes, setAllRecipes] = useState([]);
+  // const [NewRecipe, setNewRecipe] = useState({});
+
+  useEffect(() => {
+    if (userState) {
+      getCollectionData(userState.uid).then(setAllRecipes);
+    }
+  }, [userState]);
+
+  // If the user's ID hasn't loaded, show nothing
+  if (!userState) {
+    return <></>;
+  }
 
   async function getCollectionData() {
     const snapshot = await db
       .collection("users")
       .doc(userState.uid)
       .collection("recipes")
-      .orderBy("LastEdit", "desc")
+      .orderBy("Title", "desc")
       .get();
+
     const storedRecipes = await Promise.all(
       snapshot.docs.map(async (doc) => await doc.data())
     );
+    console.log(storedRecipes)
     return storedRecipes;
   }
+
+  console.log(AllRecipes);
 
   return (
     <main>
