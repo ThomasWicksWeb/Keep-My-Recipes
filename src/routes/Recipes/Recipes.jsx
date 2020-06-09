@@ -11,8 +11,8 @@ const Recipes = () => {
   const { userState } = useContext(AuthContext);
 
   const [AllRecipes, setAllRecipes] = useState([]);
-  // const [NewRecipe, setNewRecipe] = useState({});
 
+  // Calls function to get all recipes from FireStore on component load
   useEffect(() => {
     if (userState) {
       getCollectionData(userState.uid).then(setAllRecipes);
@@ -24,10 +24,11 @@ const Recipes = () => {
     return <></>;
   }
 
-  async function getCollectionData() {
+  // Gets recipes from FireStore
+  async function getCollectionData(uid) {
     const snapshot = await db
       .collection("users")
-      .doc(userState.uid)
+      .doc(uid)
       .collection("recipes")
       .orderBy("Title", "desc")
       .get();
@@ -35,11 +36,10 @@ const Recipes = () => {
     const storedRecipes = await Promise.all(
       snapshot.docs.map(async (doc) => await doc.data())
     );
-    console.log(storedRecipes)
+
+    console.log("Called FireStore!");
     return storedRecipes;
   }
-
-  console.log(AllRecipes);
 
   return (
     <main>
