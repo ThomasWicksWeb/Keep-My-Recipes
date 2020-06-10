@@ -5,11 +5,16 @@ import styles from "./Recipes.module.scss";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
 
+// Recipe-realted components
+import { RecipeList } from '../../components/RecipeList'
+
 import { db } from "../../App";
 
 const Recipes = () => {
+  // Logged in user object
   const { userState } = useContext(AuthContext);
 
+  // All recipes
   const [AllRecipes, setAllRecipes] = useState([]);
 
   // Calls function to get all recipes from FireStore on component load
@@ -38,6 +43,8 @@ const Recipes = () => {
     );
 
     console.log("Called FireStore!");
+    console.log(storedRecipes);
+    console.log(typeof(storedRecipes));
     return storedRecipes;
   }
 
@@ -45,6 +52,7 @@ const Recipes = () => {
     <main>
       <p>Recipes</p>
       <ToastContainer />
+      <RecipeList AllRecipes={AllRecipes} />
       <Helmet>
         <title>Recipes | Keep My Recipes</title>
         <meta name="description" content="View all your recipes..." />
