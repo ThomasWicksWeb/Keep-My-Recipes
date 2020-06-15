@@ -5,7 +5,6 @@ type RecipeListProps = {
 };
 
 const RecipeList = ({ AllRecipes }: RecipeListProps) => {
-
   // EXAMPLE RECIPE OBJECT
   // Title: "Ice Cream Sundae"
   // Description: "A delicious ice cream and banana snack!"
@@ -14,14 +13,11 @@ const RecipeList = ({ AllRecipes }: RecipeListProps) => {
   // tags: "tasty, dessert, delicious"
   // recipeID: 1234
 
-  console.log('--------')
-  console.log(AllRecipes)
-  console.log(typeof(AllRecipes))
 
-  const MappedRecipeList = AllRecipes.map((e) => {
+  const MappedRecipeList = AllRecipes.map((e: any) => {
     return (
-      <li>
-        <p>hello {e}</p>
+      <li key={e.recipeID}>
+        <p>hello {e.Title}</p>
       </li>
     );
   });
