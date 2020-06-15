@@ -1,18 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 
+// Contexts
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { AuthContext } from "../../contexts/AuthContext";
+
 import styles from "./Recipes.module.scss";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
 
 // Recipe-realted components
-import { RecipeList } from '../../components/RecipeList'
+import { RecipeList } from "../../components/RecipeList";
 
 import { db } from "../../App";
 
 const Recipes = () => {
   // Logged in user object
   const { userState } = useContext(AuthContext);
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const LocalTheme = isLightTheme ? theme.light : theme.dark;
 
   // All recipes
   const [AllRecipes, setAllRecipes] = useState([]);
@@ -42,22 +47,29 @@ const Recipes = () => {
       snapshot.docs.map(async (doc) => await doc.data())
     );
 
-    console.log("Called FireStore!");
-    console.log(storedRecipes);
-    console.log(typeof(storedRecipes));
     return storedRecipes;
   }
 
   return (
-    <main>
-      <p>Recipes</p>
-      <ToastContainer />
-      <RecipeList AllRecipes={AllRecipes} />
-      <Helmet>
-        <title>Recipes | Keep My Recipes</title>
-        <meta name="description" content="View all your recipes..." />
-      </Helmet>
-    </main>
+    <section className="section">
+      <main
+        className="container"
+      >
+        <h1
+          className="has-text-weight-bold is-size-2 has-text-dark-grey"
+          style={{ color: LocalTheme.syntax }}
+        >
+          Recipes
+        </h1>
+
+        <ToastContainer />
+        <RecipeList AllRecipes={AllRecipes} />
+        <Helmet>
+          <title>Recipes | Keep My Recipes</title>
+          <meta name="description" content="View all your recipes..." />
+        </Helmet>
+      </main>
+    </section>
   );
 };
 
