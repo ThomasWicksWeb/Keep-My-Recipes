@@ -8,7 +8,7 @@ function AppFooter() {
   const LocalTheme = isLightTheme ? theme.light : theme.dark;
 
   return (
-    <footer className="footer" style={{background: LocalTheme.backgroundColorLight, color: LocalTheme.syntax}}>
+    <footer className="footer" style={{background: LocalTheme.backgroundColorDark, color: LocalTheme.syntax}}>
       <div className="content has-text-centered">
         <p className="is-size-6">
           <strong style={{color: LocalTheme.syntax}}>Keep My Recipes</strong> by{" "}
