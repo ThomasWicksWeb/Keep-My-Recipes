@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 // Firebase services
@@ -10,6 +10,9 @@ import "firebase/firestore";
 import "bulma"; // Styles app on a global level
 import "./BulmaFixes.scss";
 import "react-toastify/dist/ReactToastify.css";
+
+// Contexts
+import { ThemeContext } from "./contexts/ThemeContext";
 
 // Components
 import { Footer } from "./components/Footer";
@@ -43,16 +46,22 @@ export const db = firebase.firestore();
 export const auth = firebase.auth();
 
 function App() {
+  // Theme Context
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const LocalTheme = isLightTheme ? theme.light : theme.dark;
+
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={Splash} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/createaccount" component={CreateAccount} />
-        <Route exact path="/recipes" component={Recipes} />
-        <Route exact path="/account" component={Account} />
-        <Route exact path="/settings" component={Settings} />
+        <main style={{ backgroundColor: LocalTheme.backgroundColorLight }}>
+          <Route exact path="/" component={Splash} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/createaccount" component={CreateAccount} />
+          <Route exact path="/recipes" component={Recipes} />
+          <Route exact path="/account" component={Account} />
+          <Route exact path="/settings" component={Settings} />
+        </main>
       </Switch>
       <Footer />
     </BrowserRouter>
