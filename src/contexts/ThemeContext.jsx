@@ -3,12 +3,13 @@ import React, { createContext, useState, useEffect } from "react";
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
-  const [isLightTheme, setTheme] = useState(false);
+  const [isLightTheme, setTheme] = useState(true);
 
   const theme = {
     light: {
       syntax: "black",
       backgroundColorLight: "white",
+      backgroundColorDark: "#fafafa"
     },
     dark: {
       syntax: "white",
