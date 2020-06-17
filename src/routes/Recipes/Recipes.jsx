@@ -74,7 +74,7 @@ const Recipes = () => {
               setRecipeToShow={setRecipeToShow}
             />
           </div>
-          <div>
+          <div className={styles.SingleRecipeContainer}>
             <SingleRecipe RecipeID={SelectedRecipe} AllRecipes={AllRecipes} />
           </div>
         </main>
