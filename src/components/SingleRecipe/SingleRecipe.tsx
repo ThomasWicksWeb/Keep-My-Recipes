@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 
+import { SingleRecipeTemplate } from './SingleRecipeTemplate'
+
 // Contexts
 import { ThemeContext } from "../../contexts/ThemeContext";
 
@@ -12,15 +14,6 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 // recipeID: 1234
 
 type SingleRecipeProps = {
-  Recipe: {
-    Title: string;
-    Description: string;
-    ingredients: string;
-    instructions: string;
-    tags: string;
-    recipeID: string;
-  };
-  // AllRecipes: Array<object>;
   AllRecipes: any;
   RecipeID: string;
 };
@@ -31,8 +24,9 @@ const SingleRecipe = ({ AllRecipes, RecipeID }: SingleRecipeProps) => {
 
   if (RecipeID !== null) {
     const FoundRecipe = AllRecipes.find((e: any) => e.recipeID === RecipeID);
-    console.log("Found recipe is: ", FoundRecipe)
-    return <div>{FoundRecipe.Title}</div>;
+
+    return <SingleRecipeTemplate Recipe={FoundRecipe} />;
+
   } else {
     return <>No item selected</>;
   }
