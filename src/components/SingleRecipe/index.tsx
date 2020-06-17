@@ -1,1 +1,1 @@
-export { default as RecipeCard } from "./SingleRecipe";
+export { default as SingleRecipe } from "./SingleRecipe";
