@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
 
+// Styling
+import styles from "./SingleRecipeTemplate.module.scss";
+
 // Contexts
 import { ThemeContext } from "../../../contexts/ThemeContext";
 
@@ -27,12 +30,20 @@ const SingleRecipeTemplate = ({ Recipe }: SingleRecipeProps) => {
   const LocalTheme = isLightTheme ? theme.light : theme.dark;
 
   return (
-    <div style={{color: LocalTheme.syntax}}>
-      <h2>{Recipe.Title}</h2>
-      <h2>{Recipe.Description}</h2>
+    <div
+      className={styles.RecipeContainer}
+      style={{
+        color: LocalTheme.syntax,
+        backgroundColor: LocalTheme.backgroundColorDark,
+      }}
+    >
+      <h2 className="is-size-4 has-text-weight-bold">{Recipe.Title}</h2>
+      <div className={styles.TextContainer}>
+        <h2 className="is-size-5">{Recipe.Description}</h2>
+      </div>
       <h2>{Recipe.ingredients}</h2>
     </div>
-  )
+  );
 };
 
 export default SingleRecipeTemplate;
