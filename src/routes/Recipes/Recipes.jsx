@@ -7,9 +7,11 @@ import { AuthContext } from "../../contexts/AuthContext";
 import styles from "./Recipes.module.scss";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
+import classnames from "classnames";
 
 // Recipe-realted components
 import { RecipeList } from "../../components/RecipeList";
+import { SingleRecipe } from "../../components/SingleRecipe";
 
 import { db } from "../../App";
 
@@ -19,8 +21,8 @@ const Recipes = () => {
   const { isLightTheme, theme } = useContext(ThemeContext);
   const LocalTheme = isLightTheme ? theme.light : theme.dark;
 
-  // All recipes
-  const [AllRecipes, setAllRecipes] = useState([]);
+  const [AllRecipes, setAllRecipes] = useState([]); // All recipes
+  const [SelectedRecipe, setSelectedRecipe] = useState(null);
 
   // Calls function to get all recipes from FireStore on component load
   useEffect(() => {
@@ -33,6 +35,10 @@ const Recipes = () => {
   if (!userState) {
     return <></>;
   }
+
+  const setRecipeToShow = (RecipeID) => {
+    setSelectedRecipe(RecipeID);
+  };
 
   // Gets recipes from FireStore
   async function getCollectionData(uid) {
@@ -51,10 +57,8 @@ const Recipes = () => {
   }
 
   return (
-    <section className="section">
-      <main
-        className="container"
-      >
+    <section className={classnames("section", styles.PageContainer)}>
+      <main className="container">
         <h1
           className="has-text-weight-bold is-size-2 has-text-dark-grey"
           style={{ color: LocalTheme.syntax }}
@@ -63,7 +67,17 @@ const Recipes = () => {
         </h1>
 
         <ToastContainer />
-        <RecipeList AllRecipes={AllRecipes} />
+        <main className={styles.MainContainer}>
+          <div className={styles.RecipeListContainer}>
+            <RecipeList
+              AllRecipes={AllRecipes}
+              setRecipeToShow={setRecipeToShow}
+            />
+          </div>
+          <div>
+            <SingleRecipe RecipeID={SelectedRecipe} AllRecipes={AllRecipes} />
+          </div>
+        </main>
         <Helmet>
           <title>Recipes | Keep My Recipes</title>
           <meta name="description" content="View all your recipes..." />
