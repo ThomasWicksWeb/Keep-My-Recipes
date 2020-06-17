@@ -58,7 +58,7 @@ const Recipes = () => {
 
   return (
     <section className={classnames("section", styles.PageContainer)}>
-      <main className="container">
+      <div className="container">
         <h1
           className="has-text-weight-bold is-size-2 has-text-dark-grey"
           style={{ color: LocalTheme.syntax }}
@@ -82,7 +82,7 @@ const Recipes = () => {
           <title>Recipes | Keep My Recipes</title>
           <meta name="description" content="View all your recipes..." />
         </Helmet>
-      </main>
+      </div>
     </section>
   );
 };
