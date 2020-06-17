@@ -1,9 +1,14 @@
 .MainContainer {
-  
+  display: flex;
 }
 
 .RecipeListContainer {
-  float: left;
+  // float: left;
+  flex: 1
+}
+
+.SingleRecipeContainer {
+  flex: 4;
 }
 
 .PageContainer {
