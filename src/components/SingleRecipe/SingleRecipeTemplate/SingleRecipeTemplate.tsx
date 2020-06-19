@@ -39,7 +39,7 @@ const SingleRecipeTemplate = ({ Recipe }: SingleRecipeProps) => {
     >
       <h2 className="is-size-4 has-text-weight-bold">{Recipe.Title}</h2>
       <div className={styles.TextContainer}>
-        <h2 className="is-size-5">{Recipe.Description}</h2>
+        <h2 className="is-size-6">{Recipe.Description}</h2>
       </div>
       <h2>{Recipe.ingredients}</h2>
     </div>
