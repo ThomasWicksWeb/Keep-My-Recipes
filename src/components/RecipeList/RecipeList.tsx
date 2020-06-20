@@ -22,7 +22,17 @@ const RecipeList = ({ AllRecipes, setRecipeToShow }: RecipeListProps) => {
   const { isLightTheme, theme } = useContext(ThemeContext);
   const LocalTheme = isLightTheme ? theme.light : theme.dark;
 
+  // Maps all the recipe objects for Title/Desc preview 'parent' list
   const MappedRecipeList = AllRecipes.map((e: any) => {
+
+    const DescText = () => {
+      if (e.Description.length > 65) {
+        return <span>{e.Description.substring(0, 65)}...</span>;
+      } else {
+        return <span>{e.Description}</span>;
+      }
+    };
+
     return (
       <li
         key={e.recipeID}
@@ -31,7 +41,8 @@ const RecipeList = ({ AllRecipes, setRecipeToShow }: RecipeListProps) => {
         onClick={() => setRecipeToShow(e.recipeID)}
       >
         <h2 className="is-size-4 has-text-weight-bold">{e.Title}</h2>
-        <p>{e.Description.substring(0, 65)}...</p>
+        {/* <p>{e.Description.substring(0, 65)}...</p> */}
+        <p>{DescText()}</p>
       </li>
     );
   });
