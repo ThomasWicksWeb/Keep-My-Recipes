@@ -41,7 +41,6 @@ const RecipeList = ({ AllRecipes, setRecipeToShow }: RecipeListProps) => {
         onClick={() => setRecipeToShow(e.recipeID)}
       >
         <h2 className="is-size-4 has-text-weight-bold">{e.Title}</h2>
-        {/* <p>{e.Description.substring(0, 65)}...</p> */}
         <p>{DescText()}</p>
       </li>
     );
