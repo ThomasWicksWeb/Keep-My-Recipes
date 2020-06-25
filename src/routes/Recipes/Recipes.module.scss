@@ -4,7 +4,9 @@
 
 .RecipeListContainer {
   // float: left;
-  flex: 1
+  flex: 1;
+  max-height: 90vh;
+  overflow: scroll;
 }
 
 .SingleRecipeContainer {
