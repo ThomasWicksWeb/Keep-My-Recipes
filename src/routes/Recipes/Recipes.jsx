@@ -39,7 +39,7 @@ const Recipes = () => {
   const setRecipeToShow = (RecipeID) => {
     setSelectedRecipe(RecipeID);
   };
-
+// hh
   // Gets recipes from FireStore
   async function getCollectionData(uid) {
     const snapshot = await db
